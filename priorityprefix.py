@@ -20,3 +20,19 @@ def level_to_priority(level):
     if level > 15:
         return SD_INFO
     return SD_DEBUG
+
+
+class FormattingWrapper:
+
+    def __init__(self, child_formatter):
+        self.child = child_formatter
+
+    def annotate(self, levelno, text):
+        return "\n".join(
+            "<%i>%s" % (level_to_priority(levelno), line)
+            for line in text.splitlines()
+        )
+
+    def format(self, record):
+        unprefixed = self.child.format(record)
+        return self.annotate(record.levelno, unprefixed)
