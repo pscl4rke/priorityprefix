@@ -3,6 +3,7 @@
 
 Features:
 
+* Can handle custom levels as well as Python's five standard ones.
 * Ensures that each line of a multiline log message is correctly prefixed.
 
 ## Licence

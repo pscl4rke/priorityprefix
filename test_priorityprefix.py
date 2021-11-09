@@ -23,6 +23,10 @@ class TestLevelConversion(unittest.TestCase):
     def test_critical(self):
         self.assertEqual(priorityprefix.level_to_priority(logging.CRITICAL), 2)
 
+    def test_custom_level(self):
+        VERY_LOW_LEVEL = 5
+        self.assertEqual(priorityprefix.level_to_priority(VERY_LOW_LEVEL), 7)
+
 
 class TestFormatter(unittest.TestCase):
 
