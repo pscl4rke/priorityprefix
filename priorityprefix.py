@@ -3,6 +3,8 @@
 import logging
 
 
+__version__ = "0.0.0"
+
 SD_EMERG = 0
 SD_ALERT = 1
 SD_CRIT = 2
