@@ -36,3 +36,10 @@ class FormattingWrapper:
     def format(self, record):
         unprefixed = self.child.format(record)
         return self.annotate(record.levelno, unprefixed)
+
+
+def install(logger=None):
+    if logger is None:
+        logger = logging.root
+    for handler in logger.handlers:
+        handler.formatter = FormattingWrapper(handler.formatter)
