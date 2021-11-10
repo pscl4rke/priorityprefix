@@ -7,6 +7,45 @@ Features:
 * Can handle custom levels as well as Python's five standard ones.
 * Ensures that each line of a multiline log message is correctly prefixed.
 
+## Usage in your Application
+
+Install the cutting-edge version with
+
+    $ pip install git+https://github.com/pscl4rke/priorityprefix.git
+
+If you've aleady got a `Formatter` object for logging then you
+can wrap it with `FormattingWrapper`:
+
+    import priorityprefix
+    my_formatter = priorityprefix.FormattingWrapper(my_formatter)
+
+For lightweight usage there is an `install` function which integrates
+nicely with `basicConfig` from the standard library
+
+    import logging
+    logging.basicConfig(level=logging.INFO)
+    import priorityprefix
+    priorityprefix.install()
+
+## Usage with Journald
+
+In short, you shouldn't need to change anything.
+
+If setting up a Systemd service then you need to have the following
+settings in your service definition:
+
+    StandardOutput=journal
+    StandardError=journal
+    SyslogLevelPrefix=true
+
+However these are the defaults,
+so you don't normally need to change anything.
+
+Similarly,
+if you feed output through `systemd-cat`
+(which fulfils the same role as `logger`)
+then `--level-prefix` will also be enabled by default.
+
 ## The Back-Story
 
 To get your log messages into Systemd's Journald you have a number of options:
