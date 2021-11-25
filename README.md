@@ -9,11 +9,15 @@ Features:
 
 ## Usage in your Application
 
-Install the cutting-edge version with
+Install the latest stable version with
+
+    $ pip install priorityprefix
+
+Or install the cutting-edge version with
 
     $ pip install git+https://github.com/pscl4rke/priorityprefix.git
 
-If you've aleady got a `Formatter` object for logging then you
+If you've already got a `Formatter` object for logging then you
 can wrap it with `FormattingWrapper`:
 
     import priorityprefix
