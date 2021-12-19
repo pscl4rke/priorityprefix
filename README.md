@@ -82,6 +82,23 @@ These prefices are
 [inspired by Syslog](https://datatracker.ietf.org/doc/html/rfc5424#section-6.2.1),
 although it only encodes priority levels and does not include facility data.
 
+## Typechecking with Mypy et al
+
+If you are checking the type annotations of your application you may
+get an error about `priorityprefix` being skipped because of
+missing stubs and markers.
+This can be suppressed in Mypy with a special comment:
+
+    import priorityprefix  # type: ignore
+
+Some type annotations could be added to this library easily enough.
+Unfortunately tools like Mypy adhere strictly to
+[PEP 561](https://www.python.org/dev/peps/pep-0561/)
+which requires the module to be fully refactored into a package
+before it will be recognised.
+Until a single-file module marker is available this library has
+no way to communicate to the tooling that type information is available.
+
 ## Licence
 
 This software library is released under the LGPL v3.0.
