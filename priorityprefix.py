@@ -33,14 +33,22 @@ class FormattingWrapper:
         self.child = child_formatter
 
     def annotate(self, levelno, text):
-        return "\n".join(
-            "<%i>%s" % (level_to_priority(levelno), line)
-            for line in text.splitlines()
-        )
+        priority = level_to_priority(levelno)
+        return prefix_all_lines(priority, text)
 
     def format(self, record):
         unprefixed = self.child.format(record)
         return self.annotate(record.levelno, unprefixed)
+
+
+def prefix_all_lines(priority, block_of_text):
+    prefixed = "\n".join(
+        "<%i>%s" % (priority, line)
+        for line in block_of_text.splitlines()
+    )
+    if block_of_text.endswith("\n"):
+        prefixed = prefixed + "\n"
+    return prefixed
 
 
 def install(logger=None):

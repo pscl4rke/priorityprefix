@@ -50,6 +50,21 @@ class TestFormatter(unittest.TestCase):
         self.assertEqual(self.fmtr.format(record), expected)
 
 
+class TestPrefixAdding(unittest.TestCase):
+
+    def test_single_line(self):
+        output = priorityprefix.prefix_all_lines(1, "Hello World")
+        self.assertEqual(output, "<1>Hello World")
+
+    def test_trailing_new_line(self):
+        output = priorityprefix.prefix_all_lines(3, "Hello World\n")
+        self.assertEqual(output, "<3>Hello World\n")
+
+    def test_multiline(self):
+        output = priorityprefix.prefix_all_lines(6, "Hello\nWorld\n")
+        self.assertEqual(output, "<6>Hello\n<6>World\n")
+
+
 class TestInstall(unittest.TestCase):
 
     def test_on_a_logger(self):
