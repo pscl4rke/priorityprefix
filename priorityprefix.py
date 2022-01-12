@@ -1,6 +1,7 @@
 
 
 import logging
+import sys
 
 
 __version__ = "1.0.1"
@@ -51,8 +52,17 @@ def prefix_all_lines(priority, block_of_text):
     return prefixed
 
 
-def install(logger=None):
+def excepthook(exc_type, exc_value, exc_tb):
+    import traceback
+    tb_lines = traceback.format_exception(exc_type, exc_value, exc_tb)
+    prefixed_tb_text = prefix_all_lines(SD_ERR, "\n".join(tb_lines))
+    sys.stderr.write(prefixed_tb_text)
+
+
+def install(logger=None, sysexcepthook=True):
     if logger is None:
         logger = logging.root
     for handler in logger.handlers:
         handler.formatter = FormattingWrapper(handler.formatter)
+    if sysexcepthook:
+        sys.excepthook = excepthook

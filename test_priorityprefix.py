@@ -1,7 +1,9 @@
 
 
 import logging
-import unittest
+import unittest, unittest.mock
+import io
+import sys
 
 import priorityprefix
 
@@ -48,6 +50,22 @@ class TestFormatter(unittest.TestCase):
         record = logging.makeLogRecord({"msg": message, "levelno": logging.ERROR})
         expected = "<3>Error\n<3>  Was\n<3>Here"
         self.assertEqual(self.fmtr.format(record), expected)
+
+
+class TestExceptHook(unittest.TestCase):
+
+    def test_excepthook(self):
+        try:
+            int("oiogoihewoicwe")
+        except:
+            e1, e2, e3 = sys.exc_info()
+        with unittest.mock.patch("priorityprefix.sys") as sysmock:
+            sysmock.stderr = io.StringIO()
+            priorityprefix.excepthook(e1, e2, e3)
+            output = sysmock.stderr.getvalue()
+        self.assertIn("<3>Traceback", output)
+        self.assertIn('<3>    int("oiogoihewoicwe")\n', output)
+        self.assertIn("<3>ValueError: invalid literal", output)
 
 
 class TestPrefixAdding(unittest.TestCase):

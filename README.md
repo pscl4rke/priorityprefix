@@ -6,6 +6,7 @@ Features:
 
 * Can handle custom levels as well as Python's five standard ones.
 * Ensures that each line of a multiline log message is correctly prefixed.
+* Also applies a prefix to uncaught exceptions.
 
 ## Usage in your Application
 
@@ -30,6 +31,10 @@ nicely with `basicConfig` from the standard library
     logging.basicConfig(level=logging.INFO)
     import priorityprefix
     priorityprefix.install()
+
+By default `install()` will also override `sys.excepthook`
+so that any uncaught exceptions will get an error priority prefix added to
+their traceback before getting dumped to `stderr`.
 
 ## Usage with Journald
 
