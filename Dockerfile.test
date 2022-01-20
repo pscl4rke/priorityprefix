@@ -1,0 +1,10 @@
+
+ARG IMAGE
+FROM $IMAGE
+
+RUN mkdir /src
+WORKDIR /src
+COPY * ./
+
+RUN python -m unittest discover
+RUN python setup.py install
