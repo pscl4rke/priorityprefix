@@ -2,6 +2,7 @@
 
 import logging
 import sys
+import warnings
 
 
 __version__ = "1.1.0"
@@ -59,10 +60,18 @@ def excepthook(exc_type, exc_value, exc_tb):
     sys.stderr.write(prefixed_tb_text)
 
 
-def install(logger=None, sysexcepthook=True):
+def formatwarning(message, category, filename, lineno, line=None):
+    msg = warnings.WarningMessage(message, category, filename, lineno, None, line)
+    original = warnings._formatwarnmsg_impl(msg)
+    return prefix_all_lines(SD_WARNING, original)
+
+
+def install(logger=None, sysexcepthook=True, warningsformat=True):
     if logger is None:
         logger = logging.root
     for handler in logger.handlers:
         handler.formatter = FormattingWrapper(handler.formatter)
     if sysexcepthook:
         sys.excepthook = excepthook
+    if warningsformat:
+        warnings.formatwarning = formatwarning

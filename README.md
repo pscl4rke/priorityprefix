@@ -7,6 +7,7 @@ Features:
 * Can handle custom levels as well as Python's five standard ones.
 * Ensures that each line of a multiline log message is correctly prefixed.
 * Also applies a prefix to uncaught exceptions.
+* And prefixes any messages from the `warnings` module.
 
 ## Usage in your Application
 
@@ -35,6 +36,10 @@ nicely with `basicConfig` from the standard library
 By default `install()` will also override `sys.excepthook`
 so that any uncaught exceptions will get an error priority prefix added to
 their traceback before getting dumped to `stderr`.
+
+By default `install()` will also override `warnings.formatwarning`
+so that things like a `DeprecationWarning` will get a warning priority prefix
+before getting emitted.
 
 ## Usage with Journald
 

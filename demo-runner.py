@@ -61,6 +61,20 @@ def main_exception():
     ])
 
 
+def main_warnings():
+    print("demo-warnings.py")
+    identifier = "priorityprefix-demo-" + str(uuid.uuid4())
+    run_into_journald(identifier, "demo-warnings.py")
+    records = query_journald(identifier)
+    check(records, [
+        (4, "UserWarning: This is a user warning"),
+        (4, '.warn("This is a user warning'),
+        (4, "DeprecationWarning: This is a deprecation warning"),
+        (4, '.warn("This is a deprecation warning'),
+    ])
+
+
 if __name__ == "__main__":
     main_logging()
     main_exception()
+    main_warnings()
