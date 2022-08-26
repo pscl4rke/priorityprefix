@@ -92,6 +92,22 @@ These prefices are
 [inspired by Syslog](https://datatracker.ietf.org/doc/html/rfc5424#section-6.2.1),
 although it only encodes priority levels and does not include facility data.
 
+## The Roadmap
+
+In many respects this project is now complete.
+Going forwards the things I want to achieve are:
+
+* Maintain compatibility with new versions of Python as they get released.
+Normally an annual thing.
+* Support automatic enabling or disabling of the prefix based on whether
+the `JOURNAL_STREAM` environment variable is present (supplied by Systemd)
+or absent (when the user is running things from a terminal).
+The complication of this is that the user would need to explicitly
+enable the prefix any time they were piping into `systemd-cat`.
+* Distribute a bdist wheel version.
+* When Tox supports running version-specific containers switch to using
+that instead of my homegrown test runner.
+
 ## Typechecking with Mypy et al
 
 If you are checking the type annotations of your application you may
