@@ -5,7 +5,7 @@ test:
 
 test-all:
 	for version in 3.6-slim-bullseye 3.7-slim-bullseye 3.8-slim-bullseye \
-				   3.9-slim-bullseye 3.10-slim-bullseye ;\
+				   3.9-slim-bullseye 3.10-slim-bullseye 3.11-slim-bullseye ;\
 	do \
 		echo ; echo $$version ; echo ;\
 		docker build --file Dockerfile.test --build-arg IMAGE="python:$$version" . ;\
