@@ -17,11 +17,12 @@ demo:
 export PYTHON_KEYRING_BACKEND := keyring.backends.null.Keyring
 release: pre-release-checks
 	test ! -d dist
-	python3 setup.py sdist
+	python3 setup.py sdist bdist_wheel
 	ls -l dist
+	check-wheel-contents dist
 	twine check dist/priorityprefix-*
 	twine upload dist/*
-	mv *egg-info -i dist
+	mv build* *egg-info -i dist
 	mv dist dist.$$(date +%Y%m%d.%H%M%S)
 
 pre-release-checks:

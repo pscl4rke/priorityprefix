@@ -104,8 +104,7 @@ the `JOURNAL_STREAM` environment variable is present (supplied by Systemd)
 or absent (when the user is running things from a terminal).
 The complication of this is that the user would need to explicitly
 enable the prefix any time they were piping into `systemd-cat`.
-* Distribute a bdist wheel version.
-* When Tox supports running version-specific containers switch to using
+* When Tox/Nox supports running version-specific containers switch to using
 that instead of my homegrown test runner.
 
 ## Typechecking with Mypy et al
