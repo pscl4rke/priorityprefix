@@ -28,7 +28,7 @@ docker-to-run += test-in-docker-3.8-slim-bullseye
 docker-to-run += test-in-docker-3.9-slim-bullseye
 docker-to-run += test-in-docker-3.10-slim-bullseye
 docker-to-run += test-in-docker-3.11-slim-bullseye
-#docker-to-run += test-in-docker-3.12-slim-bookworm
+docker-to-run += test-in-docker-3.12-slim-bookworm
 test-in-docker: $(docker-to-run)
 
 test-in-docker-%:
