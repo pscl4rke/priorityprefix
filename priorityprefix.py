@@ -22,8 +22,10 @@ def level_to_priority(level):
         return SD_CRIT
     if level > 35:
         return SD_ERR
-    if level > 25:
+    if level > 27:
         return SD_WARNING
+    if level > 23:
+        return SD_NOTICE
     if level > 15:
         return SD_INFO
     return SD_DEBUG

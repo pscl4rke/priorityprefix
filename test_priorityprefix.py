@@ -25,6 +25,10 @@ class TestLevelConversion(unittest.TestCase):
     def test_critical(self):
         self.assertEqual(priorityprefix.level_to_priority(logging.CRITICAL), 2)
 
+    def test_nonstandard_notice_level(self):
+        NOTICE = 25  # not defined in python's logging by default
+        self.assertEqual(priorityprefix.level_to_priority(NOTICE), 5)
+
     def test_custom_level(self):
         VERY_LOW_LEVEL = 5
         self.assertEqual(priorityprefix.level_to_priority(VERY_LOW_LEVEL), 7)

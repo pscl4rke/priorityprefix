@@ -41,6 +41,14 @@ Also, by default `install()` will also override `warnings.formatwarning`
 so that things like a `DeprecationWarning` will get a warning priority prefix
 before getting emitted.
 
+Note that the `logging` library does not have a level that corresponds with
+systemd's `NOTICE` level.
+However you can create a custom level with a value of `25` to emit log
+records that are notices:
+
+    NOTICE = 25
+    my_logger.log(NOTICE, "Message goes here")
+
 ## Usage with Journald
 
 In short, you shouldn't need to change anything.
