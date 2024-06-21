@@ -37,7 +37,7 @@ By default `install()` will also override `sys.excepthook`
 so that any uncaught exceptions will get an error priority prefix added to
 their traceback before getting dumped to `stderr`.
 
-By default `install()` will also override `warnings.formatwarning`
+Also, by default `install()` will also override `warnings.formatwarning`
 so that things like a `DeprecationWarning` will get a warning priority prefix
 before getting emitted.
 
@@ -92,6 +92,9 @@ These prefices are
 [inspired by Syslog](https://datatracker.ietf.org/doc/html/rfc5424#section-6.2.1),
 although it only encodes priority levels and does not include facility data.
 
+The purpose of this library is to automatically add these prefices to every
+line of output.
+
 ## The Roadmap
 
 In many respects this project is now complete.
@@ -104,8 +107,6 @@ the `JOURNAL_STREAM` environment variable is present (supplied by Systemd)
 or absent (when the user is running things from a terminal).
 The complication of this is that the user would need to explicitly
 enable the prefix any time they were piping into `systemd-cat`.
-* When Tox/Nox supports running version-specific containers switch to using
-that instead of my homegrown test runner.
 
 ## Typechecking with Mypy et al
 
