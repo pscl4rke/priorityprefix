@@ -34,11 +34,11 @@ test-in-docker: $(docker-to-run)
 test-in-docker-%:
 	@echo
 	@echo "===================================================="
-	@echo "Testing with python:$*"
+	@echo "Testing with docker.io/library/python:$*"
 	@echo "===================================================="
 	@echo
 	ephemerun \
-		-i "python:$*" \
+		-i "docker.io/library/python:$*" \
 		-v ".:/root/src:ro" \
 		-W "/root" \
 		-S "cp -air ./src/* ." \
