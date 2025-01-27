@@ -7,15 +7,19 @@ demo:
 	python3 demo-runner.py
 
 export PYTHON_KEYRING_BACKEND := keyring.backends.null.Keyring
+release: pyversion != python3 setup.py --version
+release: gitversion != git describe --tags
 release: pre-release-checks
+	@echo 'Py version:  $(pyversion)'
+	@echo 'Git version: $(gitversion)'
+	test '$(pyversion)' = '$(gitversion)'
 	test ! -d dist
 	python3 setup.py sdist bdist_wheel
-	ls -l dist
 	check-wheel-contents dist
-	twine check dist/priorityprefix-*
+	twine check dist/*
 	twine upload dist/*
 	mv build* *egg-info -i dist
-	mv dist dist.$$(date +%Y%m%d.%H%M%S)
+	mv dist dist.$$(date +%Y-%m-%d.%H%M%S)
 
 pre-release-checks:
 	pyroma .
@@ -39,7 +43,7 @@ test-in-docker-%:
 	@echo
 	ephemerun \
 		-i "docker.io/library/python:$*" \
-		-v ".:/root/src:ro" \
+		-v "`pwd`:/root/src:ro" \
 		-W "/root" \
 		-S "cp -air ./src/* ." \
 		-S "pip --no-cache-dir install ." \
