@@ -121,11 +121,14 @@ enable the prefix any time they were piping into `systemd-cat`.
 If you are checking the type annotations of your application you may
 get an error about `priorityprefix` being skipped because of
 missing stubs and markers.
-This can be suppressed in Mypy with a special comment:
+This can be suppressed in early versions of Mypy with a special comment:
 
     import priorityprefix  # type: ignore
 
-Some type annotations could be added to this library easily enough.
+Some type annotations have been be added to this library.
+From Mypy version 1.14 onwards you can use `--follow-untyped-imports`
+or `follow_untyped_imports = True` to have them checked.
+
 Unfortunately tools like Mypy adhere strictly to
 [PEP 561](https://www.python.org/dev/peps/pep-0561/)
 which requires the module to be fully refactored into a package

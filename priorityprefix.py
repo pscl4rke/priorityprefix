@@ -1,11 +1,13 @@
 
 
+from typing import Optional
+
 import logging
 import sys
 import warnings
 
 
-__version__ = "1.3.0"
+__version__ = "1.3.1"
 
 SD_EMERG = 0
 SD_ALERT = 1
@@ -68,7 +70,11 @@ def formatwarning(message, category, filename, lineno, line=None):
     return prefix_all_lines(SD_WARNING, original)
 
 
-def install(logger=None, sysexcepthook=True, warningsformat=True):
+def install(
+        logger: Optional[logging.Logger] = None,
+        sysexcepthook: bool = True,
+        warningsformat: bool = True
+) -> None:
     if logger is None:
         logger = logging.root
     for handler in logger.handlers:
