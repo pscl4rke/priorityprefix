@@ -68,6 +68,11 @@ if you feed output through `systemd-cat`
 (which fulfils the same role as `logger`)
 then `--level-prefix` will also be enabled by default.
 
+However if you are combining Systemd with Podman containers using Quadlets
+then you need to ensure `LogDriver=passthrough` is set.
+Then output lines from your contained application(s) will be
+logged in the host's journal with the correct priority levels.
+
 ## The Back-Story
 
 To get your log messages into Systemd's Journald you have a number of options:
