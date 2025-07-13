@@ -6,23 +6,19 @@ test:
 demo:
 	python3 demo-runner.py
 
-export PYTHON_KEYRING_BACKEND := keyring.backends.null.Keyring
-release: pyversion != python3 setup.py --version
-release: gitversion != git describe --tags
+pre-release-checks:
+	pyroma .
+
+release: export PYTHON_KEYRING_BACKEND := keyring.backends.null.Keyring
 release: pre-release-checks
-	@echo 'Py version:  $(pyversion)'
-	@echo 'Git version: $(gitversion)'
-	test '$(pyversion)' = '$(gitversion)'
+	test '$(shell python3 setup.py --version)' = '$(shell git describe)'
 	test ! -d dist
 	python3 setup.py sdist bdist_wheel
 	check-wheel-contents dist
 	twine check dist/*
 	twine upload dist/*
-	mv build* *egg-info -i dist
+	mv -i build* *.egg-info dist/.
 	mv dist dist.$$(date +%Y-%m-%d.%H%M%S)
-
-pre-release-checks:
-	pyroma .
 
 ####
 
