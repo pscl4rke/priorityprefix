@@ -1,7 +1,8 @@
 
 
 import logging
-import unittest, unittest.mock
+import unittest
+import unittest.mock
 import io
 import sys
 
@@ -34,10 +35,7 @@ class TestLevelConversion(unittest.TestCase):
         self.assertEqual(priorityprefix.level_to_priority(VERY_LOW_LEVEL), 7)
 
 
-class TestFormatter(unittest.TestCase):
-
-    def setUp(self):
-        self.fmtr = priorityprefix.FormattingWrapper(logging.Formatter())
+class FormatterMixin:
 
     def test_info_message(self):
         record = logging.makeLogRecord({"msg": "Hello World", "levelno": logging.INFO})
@@ -54,6 +52,16 @@ class TestFormatter(unittest.TestCase):
         record = logging.makeLogRecord({"msg": message, "levelno": logging.ERROR})
         expected = "<3>Error\n<3>  Was\n<3>Here"
         self.assertEqual(self.fmtr.format(record), expected)
+
+
+class TestFormattingWrapper(unittest.TestCase, FormatterMixin):
+    def setUp(self):
+        self.fmtr = priorityprefix.FormattingWrapper(logging.Formatter())
+
+
+class TestPriorityFormatter(unittest.TestCase, FormatterMixin):
+    def setUp(self):
+        self.fmtr = priorityprefix.PriorityFormatter(fmt="%(message)s")
 
 
 class TestExceptHook(unittest.TestCase):

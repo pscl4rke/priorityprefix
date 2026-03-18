@@ -49,6 +49,22 @@ records that are notices:
     NOTICE = 25
     my_logger.log(NOTICE, "Message goes here")
 
+If using `dictConfig(...)` then you can use the `PriorityFormatter` class.
+Any keyword arguments you pass it will be passed straight through to a
+`logging.Formatter` class it creates behind the scenes:
+
+    {
+        "version": 1,
+        "formatters": {
+            "default": {
+                "()": "priorityprefix.PriorityFormatter",
+                "fmt": "%(name)s:%(lineno)s %(levelname)s %(message)s"
+            }
+        },
+    }
+
+
+
 ## Usage with Journald
 
 In short, you shouldn't need to change anything.

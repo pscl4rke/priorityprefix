@@ -47,6 +47,11 @@ class FormattingWrapper:
         return self.annotate(record.levelno, unprefixed)
 
 
+def PriorityFormatter(**kwargs):
+    inner = logging.Formatter(**kwargs)
+    return FormattingWrapper(inner)
+
+
 def prefix_all_lines(priority, block_of_text):
     prefixed = "\n".join(
         "<%i>%s" % (priority, line)
