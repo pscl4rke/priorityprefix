@@ -7,7 +7,7 @@ import sys
 import warnings
 
 
-__version__ = "1.3.2"
+__version__ = "1.4.0"
 
 SD_EMERG = 0
 SD_ALERT = 1
