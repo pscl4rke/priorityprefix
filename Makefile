@@ -39,8 +39,6 @@ release: pre-release-checks
 
 ####
 
-image-to-run += test-in-container-3.6-slim-bullseye
-image-to-run += test-in-container-3.7-slim-bullseye
 image-to-run += test-in-container-3.8-slim-bullseye
 image-to-run += test-in-container-3.9-slim-bullseye
 image-to-run += test-in-container-3.10-slim-bullseye
